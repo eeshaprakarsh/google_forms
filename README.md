@@ -42,3 +42,25 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 ## Deploying the project to GitHub Pages
 
 ### Install the gh-pages npm package
+
+$ npm install gh-pages --save-dev
+
+At this point, the gh-pages npm package is installed on your computer and the React app's dependence upon it is documented in the React app's package.json file.
+
+### Add a homepage property to the package.json file
+
+1. Open the package.json file in a text editor.
+
+$ vi package.json
+In this tutorial, the text editor I'll be using is vi. You can use any text editor you want; for example, Visual Studio Code.
+
+2. Add a homepage property in this format*: https://{username}.github.io/{repo-name}
+
+* For a project site, that's the format. For a user site, the format is: https://{username}.github.io. You can read more about the homepage property in the "GitHub Pages" section of the create-react-app documentation.
+
+{
+  "name": "my-app",
+  "version": "0.1.0",
++ "homepage": "https://gitname.github.io/react-gh-pages",
+  "private": true,
+At this point, the React app's package.json file includes a property named homepage.
