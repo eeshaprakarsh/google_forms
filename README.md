@@ -51,16 +51,55 @@ At this point, the gh-pages npm package is installed on your computer and the Re
 
 1. Open the package.json file in a text editor.
 
-$ vi package.json
-In this tutorial, the text editor I'll be using is vi. You can use any text editor you want; for example, Visual Studio Code.
+    $ vi package.json
+    In this tutorial, the text editor I'll be using is vi. You can use any text editor you want; for example, Visual Studio Code.
 
 2. Add a homepage property in this format*: https://{username}.github.io/{repo-name}
 
-* For a project site, that's the format. For a user site, the format is: https://{username}.github.io. You can read more about the homepage property in the "GitHub Pages" section of the create-react-app documentation.
+    * For a project site, that's the format. For a user site, the format is: https://{username}.github.io. You can read more about the homepage property in     the "GitHub Pages" section of the create-react-app documentation.
 
-{
-  "name": "my-app",
-  "version": "0.1.0",
-+ "homepage": "https://gitname.github.io/react-gh-pages",
-  "private": true,
-At this point, the React app's package.json file includes a property named homepage.
+    {
+      "name": "my-app",
+      "version": "0.1.0",
+    + "homepage": "https://gitname.github.io/react-gh-pages",
+      "private": true,
+      
+    At this point, the React app's package.json file includes a property named homepage.
+    
+### Add deployment scripts to the package.json file
+  
+1. Add a "remote" to the local Git repository.
+
+   You can do that by issuing a command in this format:
+
+   $ git remote add origin https://github.com/{username}/{repo-name}.git
+   
+    To customize that command for your situation, replace {username} with your GitHub username and replace {repo-name} with the name of the GitHub      repository you created in Step 1.
+
+    In my case, I'll run:
+
+    $ git remote add origin https://github.com/gitname/react-gh-pages.git
+    
+  That command tells Git where I want it to push things whenever I—or the gh-pages npm package acting on my behalf—issue the $ git push command from within   this local Git repository.
+
+  At this point, the local repository has a "remote" whose URL points to the GitHub repository you created in Step 1.
+  
+### Deploy the React app to GitHub Pages
+
+1. Deploy the React app to GitHub Pages
+
+    $ npm run deploy
+    
+    That will cause the predeploy and deploy scripts defined in package.json to run.
+
+    Under the hood, the predeploy script will build a distributable version of the React app and store it in a folder named build. Then, the deploy script     will push the contents of that folder to a new commit on the gh-pages branch of the GitHub repository, creating that branch if it doesn't already  exist.
+
+    By default, the new commit on the gh-pages branch will have a commit message of "Updates". You can specify a custom commit message via the -m option, like this:
+
+    $ npm run deploy -- -m "Deploy React app to GitHub Pages"
+    
+    GitHub Pages will automatically detect that a new commit has been added to the gh-pages branch of the GitHub repository. Once it detects that, it will  begin serving the files that make up that commit — in this case, the distributable version of the React app — to anyone that visits the homepage URL you specified in Step 4.
+
+    That's it! The React app has been deployed to GitHub Pages! 🚀
+
+    At this point, the React app is accessible to anyone who visits the homepage URL you specified in Step 4. For example, the React app I deployed is accessible at https://gitname.github.io/react-gh-pages.
